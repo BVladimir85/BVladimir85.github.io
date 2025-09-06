@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Получить бесплатно 1 STT в тестовой сети Somnia</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6fafc;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2186eb;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #2186eb;
+    background: linear-gradient(90deg,#2186eb 70%,#56cafb 100%);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #2186eb;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Получить бесплатно 1 STT (Somnia)</h1>	
+    <p><b>Подпишитесь пожалуйста на мой Twitter:</b></p>
+    <p><a href="https://x.com/intent/follow?screen_name=Vladimir529034" target="_blank"><img src="follow.png" width="80" border="0" alt="Подписаться"></a></p>
+    <!-- <p>Введите номер своего кошелька:</p> -->
+    <input type="text" id="walletAddress" placeholder="Номер кошелька" style="width: 350px;">
+    <button id="getTokenButton">Получить 1 STT</button>
+    <p id="tokenMessage"></p>
+</div>
+
+<script>
+
+	const btn = document.getElementById('getTokenButton');
+
+	btn.addEventListener('click', async () => {
+	
+    const walletAddress = document.getElementById("walletAddress").value;	
+	
+	  //btn.disabled = true;
+	  const payload = { walletAddress: walletAddress };
+
+	  try {
+		const resp = await fetch('/your-endpoint', {
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify(payload),
+		});
+		if (!resp.ok) throw new Error(`Status ${resp.status}`);
+		const data = await resp.json();
+		
+		console.log('Ответ:', data);
+		// кнопка остаётся отключённой
+		document.getElementById("tokenMessage").innerText = "STT были отправлены. Ожидайте прихода :)";
+		
+	  } catch (err) {
+	  
+		console.error(err);
+		//btn.disabled = false; // если хотим разблокировать при ошибке
+		
+	  }
+	});
+	
+
+</script>
+</body>
+</html>
